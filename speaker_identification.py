@@ -16,6 +16,7 @@ from IPython.display import display, Audio
 # In[ ]:
 
 
+# DATASET_ROOT = "./archive/16000_pcm_speeches/"
 DATASET_ROOT = ""
 
 AUDIO_SUBFOLDER = "audio"
@@ -267,12 +268,12 @@ def residual_block(x, filters, conv_num = 3, activation = "relu"):
     s = keras.layers.Conv1D(filters, 1, padding = "same")(x)
     
     for i in range(conv_num - 1):
-        x = keras.layers.conv1D(filters, 3, padding = "same")(x)
+        x = keras.layers.Conv1D(filters, 3, padding = "same")(x)
         x = keras.layers.Activation(activation)(x)
     
     x = keras.layers.Conv1D(filters, 3, padding = "same")(x)
     x = keras.layers.Add()([x, s])
-    x = keras.laytes.Activation(activation)(x)
+    x = keras.layers.Activation(activation)(x)
     
     return keras.layers.MaxPool1D(pool_size = 2, strides = 2)(x)
 
